@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: osir-springai
+  ai:
+    ollama:
+      base-url: ${ai.base-url}
+      chat:
+        options:
+          model: ${ai.model}
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: debug
+    com.osir.springai: debug
