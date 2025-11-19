@@ -10,11 +10,12 @@ spring:
         options:
           model: ${ai.ollama.model}
     openai:
-      base-url: ${ai.openai.base-url}
       api-key: ${OPENAI_API_KEY}
+      base-url: ${ai.openai.base-url}
       chat:
         options:
           model: ${ai.openai.model}
+
 
 
   datasource:
