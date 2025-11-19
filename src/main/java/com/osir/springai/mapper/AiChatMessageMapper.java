@@ -12,12 +12,14 @@ public interface AiChatMessageMapper {
 
     /**
      * 批量插入会话消息
+     *
      * @param aiChatMessageList 会话消息列表
      */
     void insertBatch(List<AiChatMessage> aiChatMessageList);
 
     /**
      * 根据会话id删除会话消息
+     *
      * @param conversationId 会话id
      */
     @Delete("delete from ai_chat_message where conversation_id = #{conversationId}")
@@ -25,17 +27,24 @@ public interface AiChatMessageMapper {
 
     /**
      * 根据会话id查询会话消息
+     *
      * @param conversationId 会话id
      * @return 会话消息列表
      */
-    @Select("select * from ai_chat_message where conversation_id = #{conversationId} order by create_time")
+    @Select("select id,conversation_id,content,message_type,metadata,user_id from ai_chat_message " +
+            "where conversation_id = #{conversationId} " +
+            "order by create_time")
     List<AiChatMessage> selectListByConversationId(String conversationId);
 
     /**
      * 查询所有会话id
+     *
      * @return 会话id列表
      */
-    @Select("select distinct conversation_id from ai_chat_message")
+    @Select("select distinct conversation_id " +
+            "from ai_chat_message " +
+            "group by conversation_id " +
+            "order by max(create_time) desc")
     List<String> selectConversationIds();
 
 }

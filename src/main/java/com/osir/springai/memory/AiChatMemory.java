@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
@@ -51,9 +52,13 @@ public class AiChatMemory extends AbstractChatMemory {
         Message message = switch (aiChatMessage.getMessageType()) {
             case 0 -> SystemMessage.builder()
                     .text(aiChatMessage.getContent())
-                    .metadata();
-            case 1 -> new UserMessage(aiChatMessage.getContent());
-            case 2 -> new AssistantMessage(aiChatMessage.getContent());
+                    .metadata(JSONUtil.toBean(aiChatMessage.getMetadata(), Map.class))
+                    .build();
+            case 1 -> UserMessage.builder()
+                    .text(aiChatMessage.getContent())
+                    .metadata(JSONUtil.toBean(aiChatMessage.getMetadata(), Map.class))
+                    .build();
+            case 2 -> new AssistantMessage(aiChatMessage.getContent(), JSONUtil.toBean(aiChatMessage.getMetadata(), Map.class));
             default -> null;
         };
         return message;

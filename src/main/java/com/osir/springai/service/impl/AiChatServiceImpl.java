@@ -1,12 +1,10 @@
 package com.osir.springai.service.impl;
 
-import com.osir.springai.converter.ChatMessageConverter;
 import com.osir.springai.entity.AiChatMessage;
 import com.osir.springai.entity.vo.MessageVo;
 import com.osir.springai.mapper.AiChatMessageMapper;
 import com.osir.springai.service.AiChatService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.chat.messages.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.List;
 public class AiChatServiceImpl implements AiChatService {
 
     private final AiChatMessageMapper aiChatMessageMapper;
-    private final ChatMessageConverter chatMessageConverter;
 
     @Override
     public List<String> selectConversationIds() {

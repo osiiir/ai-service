@@ -11,7 +11,7 @@ import org.springframework.ai.chat.messages.MessageType;
 import java.util.ArrayList;
 import java.util.List;
 
-// 模板类
+//  模板类
 public abstract class AbstractChatMemory implements ChatMemory {
 
     protected abstract void insertBatch(List<?> chatMessageList);
