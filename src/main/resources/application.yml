@@ -5,10 +5,19 @@ spring:
     name: osir-springai
   ai:
     ollama:
-      base-url: ${ai.base-url}
+      base-url: ${ai.ollama.base-url}
       chat:
         options:
-          model: ${ai.model}
+          model: ${ai.ollama.model}
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      base-url: ${ai.openai.base-url}
+      chat:
+        options:
+          model: ${ai.openai.model}
+
+
+
   datasource:
     driver-class-name: ${mysql.datasource.driver-class-name}
     url: jdbc:mysql://${mysql.datasource.host}:${mysql.datasource.port}/${mysql.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true

@@ -2,10 +2,13 @@ package com.osir.springai.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.core.ApplicationContext;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
@@ -14,7 +17,7 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/ai")
 public class AiChatController {
 
-    private final ChatClient chatClient;
+    private final ChatClient ollamaChatClient;
 
     /**
      * ai聊天
@@ -23,8 +26,8 @@ public class AiChatController {
      * @return 流式输出
      */
     @PostMapping(value = "/chat",produces = "text/html; charset=utf-8")
-    public Flux<String> chat(String prompt,@RequestParam("chatId") String conversationId){
-        return chatClient.prompt()
+    public Flux<String> chat(String prompt, @RequestParam("chatId") String conversationId){
+        return ollamaChatClient.prompt()
                 .user(prompt)
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationId))
                 .stream()   //  流式输出
