@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 @SpringBootTest
-class OsirSpringaiApplicationTests {
+class AiServiceApplicationTests {
 
 
     public static void main(String[] args) {
