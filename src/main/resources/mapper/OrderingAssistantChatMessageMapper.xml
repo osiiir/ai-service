@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osir.aiservice.mapper.OrderingAssistantChatMessageMapper">
+
+    <insert id="insertBatch">
+        insert into assistant_chat_message (conversation_id, content, message_type, metadata, user_id) values
+        <foreach item="item" collection="assistantChatMessageList" separator=",">
+            (#{item.conversationId}, #{item.content}, #{item.messageType}, #{item.metadata}, #{item.userId})
+        </foreach>
+    </insert>
+
+</mapper>
+
+

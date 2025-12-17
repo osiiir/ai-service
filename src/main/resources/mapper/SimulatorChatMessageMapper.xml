@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.osir.springai.mapper.SimulatorChatMessageMapper">
+<mapper namespace="com.osir.aiservice.mapper.SimulatorChatMessageMapper">
 
     <insert id="insertBatch">
         insert into simulator_chat_message (conversation_id, content, message_type, metadata) values
