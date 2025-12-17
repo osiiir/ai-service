@@ -1,11 +1,22 @@
 server:
-  port: 8010
+  port: 8009
 
 spring:
+  application:
+    name: ai-service
   profiles:
     active: dev
-  application:
-    name: osir-springai
+  config:
+    import: nacos:request_deliver.yml?group=common
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      config:
+        # 指定命名空间
+        namespace: dev
+        import-check:
+          enabled: false
+# ai
   ai:
     ollama:
       base-url: ${ai.ollama.base-url}
@@ -18,14 +29,31 @@ spring:
       chat:
         options:
           model: ${ai.openai.model}
-
-
-
+# mysql
   datasource:
     driver-class-name: ${mysql.datasource.driver-class-name}
     url: jdbc:mysql://${mysql.datasource.host}:${mysql.datasource.port}/${mysql.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: ${mysql.datasource.username}
     password: ${mysql.datasource.password}
+
+# seata：seata根目录下的conf的配置文件也要修改，注册到nacos中,并且数据库中要有undo_log表
+seata:
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: localhost:8848
+      group: "SEATA_GROUP"
+      namespace: ""
+      cluster: "default"
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      namespace: ""
+      group: "SEATA_GROUP"
+      data-id: seataServer.properties
+#  tx-service-group: default_tx_group
 
 mybatis:
   #mapper配置文件
